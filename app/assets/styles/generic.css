@@ -1,0 +1,28 @@
+body
+{
+	background-color:black;
+	color:white;
+}
+
+.idea
+{
+	border-style:solid;
+	border-color:gray;
+	border-width:1px;
+	padding:1%;
+	margin-bottom:1%;
+}
+
+.ideaDescription
+{
+	color:gray;
+}
+
+.ideaBoxForm
+{
+	border-style:solid;
+	border-color:gray;
+	border-width:1px;
+	padding:5%;
+}
+
