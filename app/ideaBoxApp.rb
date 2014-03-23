@@ -6,7 +6,7 @@ class IdeaBoxApp < Sinatra::Base
 
 	get '/' do 
 		
-		@ideas = IdeaStore.findAll
+		@ideas = IdeaStore.findAll.sort
 		@idea = Idea.new
 		erb :index, :locals => { ideas: @ideas, idea: @idea }	
 
@@ -25,9 +25,18 @@ class IdeaBoxApp < Sinatra::Base
 		erb :edit, :locals => { idea: @idea, id: params[:id] }
 	end
 
+	get '/:id/like' do 
+
+		@idea = IdeaStore.findById(params[:id])
+		@idea.addLike
+		IdeaStore.update(params[:id], @idea)
+		redirect to('/')
+	
+	end
+
 
 	put '/:id/edit' do
-		@idea = params[:idea] 
+		@idea = Idea.new(params[:idea]) 
 		IdeaStore.update(params[:id], @idea)
 		redirect to('/')
 	end

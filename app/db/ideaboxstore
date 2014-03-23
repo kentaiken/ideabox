@@ -1,5 +1,10 @@
 ---
 ideas:
-- title: Having aa time table.
-  description: Having a time table helps you organize tasks well, keeping all the
-    important tasks to be done earlier than those which are less important.
+- title: Having tags
+  description: Tagging ideas will help in grouping up similar ideas, and thereby allowing
+    the user to search ideas with tags.
+  likes: 0
+- title: Keeping statistics of ideas
+  description: It's good to track the additions of ideas since it will allow users
+    to view ideas across the hours of a day or days of a week.
+  likes: 0

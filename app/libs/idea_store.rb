@@ -23,7 +23,7 @@ class IdeaStore
 	def self.update(id, data)
 
 		store.transaction do |handle|
-			handle['ideas'][id.to_i] = data
+			handle['ideas'][id.to_i] = data.to_h
 		end
 	end
 
@@ -37,9 +37,11 @@ class IdeaStore
 
 	def self.findAll
 
-		rawIdeas.map do |idea|
-			Idea.new(idea)
+		ideas = []
+		rawIdeas.each_with_index do |idea, index|
+			ideas << Idea.new( idea.merge({"id" => index}) )
 		end
+		ideas
 	
 	end
 

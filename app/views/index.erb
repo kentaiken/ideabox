@@ -14,7 +14,7 @@
 			<% if ideas.empty? %>
 				<p> <i> Sorry there aren't any ideas recorded yet. </i> </p>
 			<% else %>
-				<% ideas.each_with_index do |idea, index| %>
+				<% ideas.each do |idea| %>
 					<div class = 'idea'>
 						<div class = 'ideaHeading'>
 							<%= idea.title %>
@@ -24,11 +24,13 @@
 							</br>
 							</br>
 							<div class = 'btn-group btn-group-xs'>
-									<a href = '/<%= index %>/edit'>Edit</a>
-									<form id = 'deleteForm<%= index %>' action = '/<%= index %>/delete' method = 'POST'>
+									<a href = '/<%= idea.id %>/like'>Like</a>
+									</br>
+									<a href = '/<%= idea.id %>/edit'>Edit</a>
+									<form id = 'deleteForm<%= idea.id %>' action = '/<%= idea.id %>/delete' method = 'POST'>
 
 								<input type = 'hidden' name = '_method' value = 'DELETE'/>
-								<a href = '#' onClick = "document.getElementById('deleteForm<%= index %>').submit();">Remove</a>
+								<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>
 
 							</form>
 							</div>
