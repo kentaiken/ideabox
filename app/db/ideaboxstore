@@ -1,10 +1,13 @@
 ---
 ideas:
-- title: Having tags
-  description: Tagging ideas will help in grouping up similar ideas, and thereby allowing
-    the user to search ideas with tags.
+- title: Changing background theme
+  description: I think it's a good idea to change the background theme to light.
+  likes: 2
+  tags:
+  - Change
+- title: Having Statistics
+  description: It seems like a good idea to have statistics about ideas, so that we
+    get an organized information on recorded ideas across a week or day.
   likes: 0
-- title: Keeping statistics of ideas
-  description: It's good to track the additions of ideas since it will allow users
-    to view ideas across the hours of a day or days of a week.
-  likes: 0
+  tags:
+  - New

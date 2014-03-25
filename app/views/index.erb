@@ -1,64 +1,24 @@
-<div class = 'container'>
-	<div class = 'row'>
-		<div class = 'col-md-12'> 
-	<div class = 'page-header'>
+<div class = 'row'>
+	<div class = 'col-md-9'>
+		<p class = 'lead'>These are ideas you have created.</p>
+		<%= erb :idea_list, :locals => { ideas: ideas } %>
 
-		<h1>IdeaBox <small>Recording your ideas.</small></h1>
+
 	</div>
-	</div>
-	</div>
-
-	<div class = 'row'>
-		<div class = 'col-md-12'>
-			<p class = 'lead'>These are ideas you have created.</p>
-			<% if ideas.empty? %>
-				<p> <i> Sorry there aren't any ideas recorded yet. </i> </p>
-			<% else %>
-				<% ideas.each do |idea| %>
-					<div class = 'idea'>
-						<div class = 'ideaHeading'>
-							<%= idea.title %>
-						</div>
-						<div class = 'ideaDescription'>
-							<%= idea.description %>
-							</br>
-							</br>
-							<div class = 'btn-group btn-group-xs'>
-									<a href = '/<%= idea.id %>/like'>Like</a>
-									</br>
-									<a href = '/<%= idea.id %>/edit'>Edit</a>
-									<form id = 'deleteForm<%= idea.id %>' action = '/<%= idea.id %>/delete' method = 'POST'>
-
-								<input type = 'hidden' name = '_method' value = 'DELETE'/>
-								<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>
-
-							</form>
-							</div>
-						</div>
-
-
-					</div>
-					<% end %>
+	<div class = 'col-md-3'>
+		<p class = 'lead'>Idea Tags</p>
+			<% tags.each do |tag| %>
+				<p>
+				<a href = '/ideas/<%=tag%>'><%= tag %></a>
+				</p>
 			<% end %>
-
-
-		</div>
 	</div>
+</div>
 
-	<div class = 'row'>
-		<div class = 'col-md-6'>
-			<p class = 'lead'>Add a new idea.</p>
-			<%= erb :form, :locals => { idea: idea, mode: 'post' } %>
-		</div>
-	</div>
-
-
-	<div class = 'row'>
-		<div class = 'col-md-12'>
-			<div class = 'text-center'>
-				<p>IdeaBox application is just a tutorial project to learn ruby sinatra framework and bootstrap.</p>
-			</div>
-		</div>
+<div class = 'row'>
+	<div class = 'col-md-6'>
+		<p class = 'lead'>Add a new idea.</p>
+		<%= erb :form, :locals => { idea: idea, mode: 'post' } %>
 	</div>
 </div>
 <script type = 'text/javascript' src = 'bootstrap/js/bootstrap.js'></script>

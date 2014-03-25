@@ -7,8 +7,9 @@ class IdeaBoxApp < Sinatra::Base
 	get '/' do 
 		
 		@ideas = IdeaStore.findAll.sort
+		@tags = TagManager.getUniqueTags(@ideas)
 		@idea = Idea.new
-		erb :index, :locals => { ideas: @ideas, idea: @idea }	
+		erb :index, :locals => { ideas: @ideas, idea: @idea, tags:  @tags}	
 
 	end
 
@@ -31,6 +32,15 @@ class IdeaBoxApp < Sinatra::Base
 		@idea.addLike
 		IdeaStore.update(params[:id], @idea)
 		redirect to('/')
+	
+	end
+
+	get '/ideas/:tagName' do
+
+		@ideas = IdeaStore.findAll.sort
+		@ideas = TagManager.ideasWithTagname(params[:tagName], @ideas)
+
+		erb :tag_ideas, :locals => { ideas: @ideas }
 	
 	end
 

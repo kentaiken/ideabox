@@ -26,3 +26,21 @@ body
 	padding:5%;
 }
 
+a:link
+{
+	color:yellow;
+	text-decoration:none;
+}
+a:visited
+{
+	color:yellow;
+}
+
+a:hover
+{
+	color:gray;
+}
+a:active
+{
+	color:silver;
+}

@@ -1,0 +1,28 @@
+<% if ideas.empty? %>
+				<p> <i> Sorry there aren't any ideas recorded yet. </i> </p>
+			<% else %>
+				<% ideas.each do |idea| %>
+					<div class = 'idea'>
+						<div class = 'ideaHeading'>
+							<%= idea.title %>
+						</div>
+						<div class = 'ideaDescription'>
+							<%= idea.description %>
+							</br>
+							</br>
+							<div class = 'btn-group btn-group-xs'>
+								<a href = '/<%= idea.id %>/edit'>Edit</a>
+								<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>
+								<a href = '/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>
+							</div>
+						</div>
+						<form id = 'deleteForm<%= idea.id %>' action = '/<%= idea.id %>/delete' method = 'POST'>
+
+								<input type = 'hidden' name = '_method' value = 'DELETE'/>
+
+						</form>
+
+
+					</div>
+					<% end %>
+			<% end %>

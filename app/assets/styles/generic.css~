@@ -23,6 +23,25 @@ body
 	border-style:solid;
 	border-color:gray;
 	border-width:1px;
-	padding:10%;
+	padding:5%;
 }
 
+a:link
+{
+	color:red;
+	text-decoration:none;
+}
+a:visited
+{
+	color:yellow;
+}
+
+a:hover
+{
+	color:gray;
+	text-bold:true;
+}
+a:active
+{
+	color:silver;
+}
