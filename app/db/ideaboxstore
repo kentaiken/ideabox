@@ -1,13 +1,36 @@
 ---
 ideas:
 - title: Changing background theme
-  description: I think it's a good idea to change the background theme to light.
+  description: I think it's a good idea to change the background theme to light. It
+    will also be a good idea. And also a good challenge.
   likes: 2
   tags:
   - Change
+  history:
+  - title: Changing background theme
+    description: I think it's a good idea to change the background theme to light.
+      It will also be a good idea.
+  - title: Changing background theme
+    description: I think it's a good idea to change the background theme to light.
 - title: Having Statistics
   description: It seems like a good idea to have statistics about ideas, so that we
-    get an organized information on recorded ideas across a week or day.
-  likes: 0
+    get an organized information on recorded ideas across a week or a day.
+  likes: 4
   tags:
   - New
+  history:
+  - title: Having Statistics
+    description: It seems like a good idea to have statistics about ideas, so that
+      we get an organized information on recorded ideas across a week or day.
+  - title: Having Statistics
+    description: It seems like a very good idea to have statistics about ideas, so
+      that we get an organized information on recorded ideas across a week or day.
+- title: Adding resources
+  description: I think adding resources to ideas is a good idea.
+  likes: 1
+  tags:
+  - New
+  - Innovative
+  history:
+  - title: Adding resources
+    description: I think adding resources to ideas is a good idea.

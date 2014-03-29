@@ -40,13 +40,22 @@ class IdeaBoxApp < Sinatra::Base
 		@ideas = IdeaStore.findAll.sort
 		@ideas = TagManager.ideasWithTagname(params[:tagName], @ideas)
 
-		erb :tag_ideas, :locals => { ideas: @ideas }
+		erb :tag_ideas, :locals => { ideas: @ideas, tagName: params[:tagName] }
 	
+	end
+
+	get '/idea/:id' do
+
+		@idea = IdeaStore.findById(params[:id])
+
+		erb :idea, :locals => { idea: @idea }
+
 	end
 
 
 	put '/:id/edit' do
-		@idea = Idea.new(params[:idea]) 
+		@originalIdea = IdeaStore.findById(params[:id])
+		@idea = Idea.new( params[:idea].merge({ "history" => @originalIdea.withHistory }) )
 		IdeaStore.update(params[:id], @idea)
 		redirect to('/')
 	end

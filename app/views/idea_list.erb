@@ -11,6 +11,7 @@
 							</br>
 							</br>
 							<div class = 'btn-group btn-group-xs'>
+								<a href = '/idea/<%= idea.id %>'> Details </a>
 								<a href = '/<%= idea.id %>/edit'>Edit</a>
 								<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>
 								<a href = '/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>

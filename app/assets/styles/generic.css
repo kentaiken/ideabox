@@ -28,12 +28,12 @@ body
 
 a:link
 {
-	color:yellow;
+	color:cyan;
 	text-decoration:none;
 }
 a:visited
 {
-	color:yellow;
+	color:cyan;
 }
 
 a:hover

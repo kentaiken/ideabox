@@ -1,7 +1,7 @@
 class Idea
 
 	
-	attr_reader :title, :description, :id, :likes, :tags
+	attr_reader :title, :description, :id, :likes, :tags, :history
 	include Comparable
 
 	def initialize(idea = {})
@@ -11,6 +11,7 @@ class Idea
 		@id = idea["id"]
 		@likes = idea["likes"] || 0
 		@tags = sanitizeTags(idea["tags"] || [])
+		@history = idea["history"] || []
 
 	end
 
@@ -37,7 +38,8 @@ class Idea
 			"title" => @title,
 			"description" => @description,
 			"likes" => @likes.to_i,
-			"tags" => @tags
+			"tags" => @tags,
+			"history" => @history
 		}
 	end
 
@@ -61,5 +63,12 @@ class Idea
 		@tags.include?(tagName)
 
 	end
+
+	def withHistory
+
+		@history.dup.insert(0, { "title" => @title, "description" => @description } )
+	
+	end
+
 
 end
