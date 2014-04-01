@@ -3,6 +3,11 @@
 		<div class = 'page-header'>
 			<h3><%= idea.title %></h3>
 			<p><%= idea.description %> </p>
+			<p> <span class = 'lead'> Tags :</span> 
+				<% idea.tags.each do |tag| %>
+					<a href = '/ideas/<%= tag %>'><%= tag %></a>
+				<% end %>
+			</p>
 			<a href = '/idea/<%= idea.id %>'> Details </a>
 			<a href = '/<%= idea.id %>/edit'>Edit</a>
 			<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>

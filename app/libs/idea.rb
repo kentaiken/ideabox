@@ -1,7 +1,7 @@
 class Idea
 
 	
-	attr_reader :title, :description, :id, :likes, :tags, :history
+	attr_reader :title, :description, :id, :likes, :tags, :history, :group
 	include Comparable
 
 	def initialize(idea = {})
@@ -12,6 +12,7 @@ class Idea
 		@likes = idea["likes"] || 0
 		@tags = sanitizeTags(idea["tags"] || [])
 		@history = idea["history"] || []
+		@group = idea["group"]
 
 	end
 
@@ -28,7 +29,9 @@ class Idea
 
 	def <=>(otherIdea)
 
-		 otherIdea.likes <=> @likes
+		otherIdea.likes <=> @likes
+		#return (otherIdea.likes <=> @likes) if @group == otherIdea.group
+		#@group <=> otherIdea.group
 	
 	end
 
@@ -39,7 +42,8 @@ class Idea
 			"description" => @description,
 			"likes" => @likes.to_i,
 			"tags" => @tags,
-			"history" => @history
+			"history" => @history,
+			"group" => @group
 		}
 	end
 

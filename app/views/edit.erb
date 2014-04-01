@@ -1,14 +1,9 @@
 <div class = 'row'>
-	<div class = 'col-md-6'>
-		<p class = 'lead'>Edit your idea.</p>
-		<%= erb :form, :locals => { idea: idea, id: id, mode: 'edit' } %>
-	</div>
-</div>
-
-<div class = 'row'>
 	<div class = 'col-md-12'>
-		<div class = 'text-center'>
-			<p>IdeaBox application is just a tutorial project to learn ruby sinatra framework and bootstrap.</p>
+		<p class = 'lead'>Edit your idea.</p>
+		<div class = 'center'>
+			<%= erb :form, :locals => { idea: idea, id: id, mode: 'edit', groups: groups } %>
 		</div>
+
 	</div>
 </div>

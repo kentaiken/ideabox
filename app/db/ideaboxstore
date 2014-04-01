@@ -1,36 +1,38 @@
 ---
 ideas:
-- title: Changing background theme
-  description: I think it's a good idea to change the background theme to light. It
-    will also be a good idea. And also a good challenge.
+- title: Some idea
+  description: Think some idea is a good idea.
   likes: 2
   tags:
-  - Change
-  history:
-  - title: Changing background theme
-    description: I think it's a good idea to change the background theme to light.
-      It will also be a good idea.
-  - title: Changing background theme
-    description: I think it's a good idea to change the background theme to light.
+  - Some
+  - Idea
+  history: []
+  group: Default
 - title: Having Statistics
   description: It seems like a good idea to have statistics about ideas, so that we
     get an organized information on recorded ideas across a week or a day.
-  likes: 4
+  likes: 7
   tags:
   - New
   history:
+  - title: Having Statistics
+    description: It seems like a good idea to have statistics about ideas, so that
+      we get an organized information on recorded ideas across a week or a day.
   - title: Having Statistics
     description: It seems like a good idea to have statistics about ideas, so that
       we get an organized information on recorded ideas across a week or day.
   - title: Having Statistics
     description: It seems like a very good idea to have statistics about ideas, so
       that we get an organized information on recorded ideas across a week or day.
-- title: Adding resources
-  description: I think adding resources to ideas is a good idea.
-  likes: 1
+  group: Default
+- title: Modularizing the app
+  description: It seems like a good idea, and it's fun !
+  likes: 0
   tags:
-  - New
-  - Innovative
-  history:
-  - title: Adding resources
-    description: I think adding resources to ideas is a good idea.
+  - Idea
+  - Refactor
+  history: []
+  group: Personal
+groups:
+- Personal
+- Funny

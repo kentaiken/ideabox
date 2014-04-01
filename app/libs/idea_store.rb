@@ -53,8 +53,30 @@ class IdeaStore
 
 	def self.store
 
-		puts Dir.pwd 
 		@store ||= YAML::Store.new("./app/db/ideaboxstore")
 	end
+
+	def self.groupedIdeas(ideas)
+
+		ret = {}
+
+		ideas.each do |idea|
+
+			ret[idea.group] = ret[idea.group] || []
+			ret[idea.group] << idea
+
+		end
+
+		ret
+
+
+	end
+	
+	#The code in here changes all the current data to the most recent structure.
+	#This should only be done one time.
+	def self.upgrade
+	
+	end
+
 
 end

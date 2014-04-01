@@ -1,7 +1,6 @@
 body
 {
-	background-color:black;
-	color:white;
+	background-color:white;
 }
 
 .idea
@@ -21,24 +20,47 @@ body
 .ideaBoxForm
 {
 	border-style:solid;
-	border-color:gray;
+	border-color:black;
 	border-width:1px;
 	padding:5%;
 }
 
+.custom-nav
+{
+	list-style-type:none;
+}
+
+li
+{
+	display:inline;
+	padding:1%;
+
+}
+li:hover
+{
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	border-color:teal;
+}
+
+.footer
+{
+	float:bottom;
+}
+
 a:link
 {
-	color:cyan;
+	color:teal;
 	text-decoration:none;
 }
 a:visited
 {
-	color:cyan;
+	color:teal;
 }
 
 a:hover
 {
-	color:gray;
+	color:black;
 }
 a:active
 {
