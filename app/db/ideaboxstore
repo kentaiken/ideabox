@@ -2,7 +2,7 @@
 ideas:
 - title: Some idea
   description: Think some idea is a good idea.
-  likes: 2
+  likes: 3
   tags:
   - Some
   - Idea
@@ -11,7 +11,7 @@ ideas:
 - title: Having Statistics
   description: It seems like a good idea to have statistics about ideas, so that we
     get an organized information on recorded ideas across a week or a day.
-  likes: 7
+  likes: 8
   tags:
   - New
   history:
@@ -33,6 +33,14 @@ ideas:
   - Refactor
   history: []
   group: Personal
+- title: Idea !
+  description: Idea !
+  likes: 0
+  tags:
+  - Idea
+  history: []
+  group: Tacko
 groups:
 - Personal
 - Funny
+- Tacko

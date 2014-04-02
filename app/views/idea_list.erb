@@ -5,7 +5,7 @@
 <% else %>
 	<% ideaGroup.each do |group, ideas| %>
 
-		<p class = 'lead'><a href = '/group/<%= group %>'><%= group %></a></p>
+		<p class = 'lead'><a href = '/groups/<%= group %>'><%= group %></a></p>
 		<% ideas.each do |idea| %>
 
 			<div class = 'idea'>
@@ -17,13 +17,13 @@
 					<%= idea.description %>
 					</br>
 					</br>
-						<p>Group : <a href = '#'><%= idea.group %></a></p>
-						<a href = '/idea/<%= idea.id %>'> Details  </a>
-						<a href = '/<%= idea.id %>/edit'>Edit  </a>
+					<p>Group : <a href = '/groups/<%= idea.group %>'><%= idea.group %></a></p>
+						<a href = '/ideas/<%= idea.id %>'> Details  </a>
+						<a href = '/ideas/<%= idea.id %>/edit'>Edit  </a>
 						<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove  </a>
-						<a href = '/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>
+						<a href = '/ideas/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>
 				</div>
-				<form id = 'deleteForm<%= idea.id %>' action = '/<%= idea.id %>/delete' method = 'POST'>
+				<form id = 'deleteForm<%= idea.id %>' action = 'ideas/<%= idea.id %>/delete' method = 'POST'>
 
 						<input type = 'hidden' name = '_method' value = 'DELETE'/>
 

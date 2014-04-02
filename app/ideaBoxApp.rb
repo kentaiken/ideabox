@@ -1,9 +1,41 @@
 
+module Routes
+
+	class IdeaGroups < Sinatra::Base
+		
+		get '/groups/new' do 
+
+			erb :new_group
+
+		end
+
+		get '/groups/:group' do
+
+			@ideasWithGroup = GroupManager.getIdeasWithGroup(params[:group], IdeaStore.findAll)
+			@ideaGroup = IdeaStore.groupedIdeas( @ideasWithGroup )
+
+			erb :group, :locals => { group: params[:group], ideaGroup: @ideaGroup }
+		end
+
+		post '/groups' do 
+
+			GroupManager.addGroup( params[:groupName] )
+
+			redirect to('/')
+		
+		end
+
+	end
+
+end
+
+
 class IdeaBoxApp < Sinatra::Base
 
 	set :method_override, true
 	set :public_folder, Dir.pwd + '/app/assets'
 
+	use Routes::IdeaGroups
 
 	before do 
 
@@ -20,14 +52,14 @@ class IdeaBoxApp < Sinatra::Base
 
 	end
 
-	post '/' do
+	post '/ideas' do
 		
 		IdeaStore.addIdea( Idea.new(params[:idea]) )
 
 		redirect to('/')
 	end
 
-	get '/idea/new' do 
+	get '/ideas/new' do 
 		
 		@idea = Idea.new
 		@groups = GroupManager.getGroups
@@ -36,31 +68,8 @@ class IdeaBoxApp < Sinatra::Base
 		erb :new_idea, :locals => { idea: @idea, groups: @groups }
 
 	end
-
-	get '/group/new' do 
-
-		erb :new_group
-
-	end
-
-	get '/group/:group' do
-
-		@ideaGroup = IdeaStore.groupedIdeas( GroupManager.getIdeasWithGroup(params[:group], IdeaStore.findAll))
-
-		erb :group, :locals => { group: params[:group], ideaGroup: @ideaGroup }
-	end
-
-	post '/group/new' do 
-
-		GroupManager.addGroup( params[:groupName] )
-
-		redirect to('/')
-	
-	end
-
 		
-
-	get '/:id/edit' do 
+	get '/ideas/:id/edit' do 
 
 		@idea = IdeaStore.findById(params[:id])
 		@groups = GroupManager.getGroups
@@ -68,7 +77,7 @@ class IdeaBoxApp < Sinatra::Base
 		erb :edit, :locals => { idea: @idea, id: params[:id], groups: @groups }
 	end
 
-	get '/:id/like' do 
+	get '/ideas/:id/like' do 
 
 		@idea = IdeaStore.findById(params[:id])
 		@idea.addLike
@@ -77,17 +86,17 @@ class IdeaBoxApp < Sinatra::Base
 	
 	end
 
-	get '/ideas/:tagName' do
+	get %r{/ideas/([a-zA-Z]+)$} do |tagName|
 
 		@ideas = IdeaStore.findAll
-		@ideas = TagManager.ideasWithTagname(params[:tagName], @ideas)
+		@ideas = TagManager.ideasWithTagname(tagName, @ideas)
 		@ideaGroup = IdeaStore.groupedIdeas(@ideas)
 
-		erb :tag_ideas, :locals => { ideaGroup: @ideaGroup, tagName: params[:tagName] }
+		erb :tag_ideas, :locals => { ideaGroup: @ideaGroup, tagName: tagName }
 	
 	end
 
-	get '/idea/:id' do
+	get '/ideas/:id' do
 
 		@idea = IdeaStore.findById(params[:id])
 
@@ -96,14 +105,14 @@ class IdeaBoxApp < Sinatra::Base
 	end
 
 
-	put '/:id/edit' do
+	put 'ideas/:id/edit' do
 		@originalIdea = IdeaStore.findById(params[:id])
 		@idea = Idea.new( params[:idea].merge({ "history" => @originalIdea.withHistory }) )
 		IdeaStore.update(params[:id], @idea)
 		redirect to('/')
 	end
 
-	delete '/:id/delete' do 
+	delete 'ideas/:id/delete' do 
 		IdeaStore.remove(params[:id])
 		redirect to('/')
 	end

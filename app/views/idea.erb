@@ -8,10 +8,10 @@
 					<a href = '/ideas/<%= tag %>'><%= tag %></a>
 				<% end %>
 			</p>
-			<a href = '/idea/<%= idea.id %>'> Details </a>
-			<a href = '/<%= idea.id %>/edit'>Edit</a>
+			<a href = '/ideas/<%= idea.id %>'> Details </a>
+			<a href = 'ideas/<%= idea.id %>/edit'>Edit</a>
 			<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>
-			<a href = '/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>
+			<a href = '/ideas/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>
 	
 		</div>
 	</div>

@@ -1,4 +1,10 @@
-<form role = 'form' class = 'ideaBoxForm' action = '/<%= id.to_s + "/edit" if mode == "edit" %>' method = 'POST'>
+<% if mode == 'edit' %>
+	<% form_path = "/ideas/<%= id.to_s + '/edit'" %>
+<% else %>
+	<% form_path = "/ideas" %>
+<% end %>
+
+<form role = 'form' class = 'ideaBoxForm' action = '<%= form_path %>' method = 'POST'>
 	<% if mode == 'edit' %>
 		<input type = 'hidden' name = '_method' value = 'PUT'/>
 		<input type = 'hidden' name = 'idea[likes]' value = '<%= idea.likes %>'/>
@@ -12,7 +18,7 @@
 		<textarea  name = 'idea[description]' class = 'form-control' rows = '5' cols = '40'><%= idea.description %></textarea>
 	</div>
 	<div class = 'form-group'>
-		<label>Group : ( <a href = '/group/new'>New group ?</a> )</label>
+		<label>Group : ( <a href = '/groups/new'>New group ?</a> )</label>
 		<select name = 'idea[group]' class = 'form-control' required = 'true'>
 			<% groups.each do |group| %>
 				<option value = '<%= group %>'><%= group %></option>
