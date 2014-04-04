@@ -71,6 +71,16 @@ class IdeaStore
 
 
 	end
+
+	def self.findIdeas( content )
+
+		ideas = findAll.sort
+
+		ideas.select do |idea|
+			
+			idea.title.include? content or idea.description.include? content
+		end
+	end
 	
 	#The code in here changes all the current data to the most recent structure.
 	#This should only be done one time.

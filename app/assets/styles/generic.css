@@ -30,6 +30,12 @@ body
 	list-style-type:none;
 }
 
+.custom-fc
+{
+	width:25%;
+	display:inline;
+}
+
 li
 {
 	display:inline;

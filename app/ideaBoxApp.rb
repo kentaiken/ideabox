@@ -59,6 +59,7 @@ class IdeaBoxApp < Sinatra::Base
 		redirect to('/')
 	end
 
+
 	get '/ideas/new' do 
 		
 		@idea = Idea.new
@@ -66,6 +67,14 @@ class IdeaBoxApp < Sinatra::Base
 		@groups.insert(0, "Default") unless @groups.include? 'Deafult'
 
 		erb :new_idea, :locals => { idea: @idea, groups: @groups }
+
+	end
+
+	get '/ideas/search' do
+
+		@ideas = IdeaStore.findIdeas( params[:content] )
+		@ideaGroup = IdeaStore.groupedIdeas( @ideas )
+		erb :search_complete, :locals => { ideaGroup: @ideaGroup, content: params[:content] }
 
 	end
 		
@@ -116,4 +125,5 @@ class IdeaBoxApp < Sinatra::Base
 		IdeaStore.remove(params[:id])
 		redirect to('/')
 	end
+
 end
