@@ -2,7 +2,7 @@
 	<div class = 'col-md-12'>
 		<p class = 'lead'>Edit your idea.</p>
 		<div class = 'center'>
-			<%= erb :form, :locals => { idea: idea, id: id, mode: 'edit', groups: groups } %>
+			<%= erb :form, :locals => { idea: @idea, id: @id, mode: 'edit', groups: @groups } %>
 		</div>
 
 	</div>

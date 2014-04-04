@@ -13,8 +13,9 @@ module Routes
 
 			@ideasWithGroup = GroupManager.getIdeasWithGroup(params[:group], IdeaStore.findAll)
 			@ideaGroup = IdeaStore.groupedIdeas( @ideasWithGroup )
+			@group = params[:group]
 
-			erb :group, :locals => { group: params[:group], ideaGroup: @ideaGroup }
+			erb :group
 		end
 
 		post '/groups' do 
@@ -48,7 +49,8 @@ class IdeaBoxApp < Sinatra::Base
 		@ideas = IdeaStore.findAll.sort
 		@ideaGroup = IdeaStore.groupedIdeas(@ideas)
 		@tags = TagManager.getUniqueTags(@ideas)
-		erb :index, :locals => { ideaGroup: @ideaGroup, tags:  @tags}	
+
+		erb :index
 
 	end
 
@@ -66,7 +68,7 @@ class IdeaBoxApp < Sinatra::Base
 		@groups = GroupManager.getGroups
 		@groups.insert(0, "Default") unless @groups.include? 'Deafult'
 
-		erb :new_idea, :locals => { idea: @idea, groups: @groups }
+		erb :new_idea
 
 	end
 
@@ -74,7 +76,9 @@ class IdeaBoxApp < Sinatra::Base
 
 		@ideas = IdeaStore.findIdeas( params[:content] )
 		@ideaGroup = IdeaStore.groupedIdeas( @ideas )
-		erb :search_complete, :locals => { ideaGroup: @ideaGroup, content: params[:content] }
+		@content = params[:content]
+
+		erb :search_complete
 
 	end
 		
@@ -82,8 +86,9 @@ class IdeaBoxApp < Sinatra::Base
 
 		@idea = IdeaStore.findById(params[:id])
 		@groups = GroupManager.getGroups
+		@id = params[:id]
 
-		erb :edit, :locals => { idea: @idea, id: params[:id], groups: @groups }
+		erb :edit
 	end
 
 	get '/ideas/:id/like' do 
@@ -91,6 +96,7 @@ class IdeaBoxApp < Sinatra::Base
 		@idea = IdeaStore.findById(params[:id])
 		@idea.addLike
 		IdeaStore.update(params[:id], @idea)
+
 		redirect to('/')
 	
 	end
@@ -100,8 +106,9 @@ class IdeaBoxApp < Sinatra::Base
 		@ideas = IdeaStore.findAll
 		@ideas = TagManager.ideasWithTagname(tagName, @ideas)
 		@ideaGroup = IdeaStore.groupedIdeas(@ideas)
+		@tagName = tagName
 
-		erb :tag_ideas, :locals => { ideaGroup: @ideaGroup, tagName: tagName }
+		erb :tag_ideas
 	
 	end
 
@@ -109,20 +116,24 @@ class IdeaBoxApp < Sinatra::Base
 
 		@idea = IdeaStore.findById(params[:id])
 
-		erb :idea, :locals => { idea: @idea }
+		erb :idea
 
 	end
 
 
 	put 'ideas/:id/edit' do
+
 		@originalIdea = IdeaStore.findById(params[:id])
 		@idea = Idea.new( params[:idea].merge({ "history" => @originalIdea.withHistory }) )
 		IdeaStore.update(params[:id], @idea)
+
 		redirect to('/')
 	end
 
 	delete 'ideas/:id/delete' do 
+
 		IdeaStore.remove(params[:id])
+
 		redirect to('/')
 	end
 

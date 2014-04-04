@@ -11,7 +11,7 @@ ideas:
 - title: Having Statistics
   description: It seems like a good idea to have statistics about ideas, so that we
     get an organized information on recorded ideas across a week or a day.
-  likes: 8
+  likes: 9
   tags:
   - New
   history:
@@ -27,7 +27,7 @@ ideas:
   group: Default
 - title: Modularizing the app
   description: It seems like a good idea, and it's fun !
-  likes: 0
+  likes: 2
   tags:
   - Idea
   - Refactor
@@ -35,7 +35,7 @@ ideas:
   group: Personal
 - title: Idea !
   description: Idea !
-  likes: 0
+  likes: 4
   tags:
   - Idea
   history: []

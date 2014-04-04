@@ -1,13 +1,13 @@
 <div class = 'row'>
 	<div class = 'col-md-9'>
 		<p class = 'lead'>These are ideas you have created.</p>
-		<%= erb :idea_list, :locals => { ideaGroup: ideaGroup } %>
+		<%= erb :idea_list, :locals => { ideaGroup: @ideaGroup } %>
 
 
 	</div>
 	<div class = 'col-md-3'>
 		<p class = 'lead'>Tags</p>
-			<% tags.each do |tag| %>
+			<% @tags.each do |tag| %>
 				<p>
 				<a href = '/ideas/<%=tag%>'><%= tag %></a>
 				</p>

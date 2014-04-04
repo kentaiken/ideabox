@@ -29,9 +29,8 @@ class Idea
 
 	def <=>(otherIdea)
 
-		otherIdea.likes <=> @likes
-		#return (otherIdea.likes <=> @likes) if @group == otherIdea.group
-		#@group <=> otherIdea.group
+		return (otherIdea.likes <=> @likes) if @group == otherIdea.group
+		@group <=> otherIdea.group
 	
 	end
 

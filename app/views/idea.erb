@@ -1,17 +1,17 @@
 <div class = 'row'>
 	<div class = 'col-md-12'>
 		<div class = 'page-header'>
-			<h3><%= idea.title %></h3>
-			<p><%= idea.description %> </p>
+			<h3><%= @idea.title %></h3>
+			<p><%= @idea.description %> </p>
 			<p> <span class = 'lead'> Tags :</span> 
-				<% idea.tags.each do |tag| %>
+				<% @idea.tags.each do |tag| %>
 					<a href = '/ideas/<%= tag %>'><%= tag %></a>
 				<% end %>
 			</p>
-			<a href = '/ideas/<%= idea.id %>'> Details </a>
-			<a href = 'ideas/<%= idea.id %>/edit'>Edit</a>
-			<a href = '#' onClick = "document.getElementById('deleteForm<%= idea.id %>').submit();">Remove</a>
-			<a href = '/ideas/<%= idea.id %>/like'>Like <span class = 'badge'><%= idea.likes %></span></a>
+			<a href = '/ideas/<%= @idea.id %>'> Details </a>
+			<a href = 'ideas/<%= @idea.id %>/edit'>Edit</a>
+			<a href = '#' onClick = "document.getElementById('deleteForm<%= @idea.id %>').submit();">Remove</a>
+			<a href = '/ideas/<%= @idea.id %>/like'>Like <span class = 'badge'><%= @idea.likes %></span></a>
 	
 		</div>
 	</div>
@@ -20,7 +20,7 @@
 
 	<div class = 'col-md-12'>
 		<p class = 'lead'> History </p>
-		<% idea.history.each do |rev| %>
+		<% @idea.history.each do |rev| %>
 
 			<div class = 'idea'>
 				<div class = 'ideaHeading'>
