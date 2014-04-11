@@ -1,0 +1,8 @@
+.row
+    .col-md-12
+        %p.lead Add your group here. It's simple just give it a name.
+        %form{role: 'form', action: '/groups', method: 'POST'}
+            .form-group
+                %label Group Name :
+                %input.form-control{type: 'text', name: 'groupName'}
+            %button.btn.btn-default{type: 'submit'} Submit

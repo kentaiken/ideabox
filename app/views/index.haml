@@ -1,0 +1,12 @@
+.row
+    .col-md-9
+        %p.lead These are ideas you have created.
+        = haml :idea_list, :locals => { ideaGroup: @ideaGroup }
+
+    .col-md-3
+        %p.lead 
+            Tags
+            - @tags.each do |tag|
+                %p
+                    %a{href: "/ideas/#{ tag }"} 
+                        = tag

@@ -1,0 +1,4 @@
+.row
+    .col-md-12
+        %p.lead Add you new idea's details here.
+        = haml :form, :locals => {idea: @idea, mode: 'none', groups: @groups}

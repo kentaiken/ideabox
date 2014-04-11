@@ -1,13 +1,15 @@
 ---
 ideas:
-- title: Some idea
-  description: Think some idea is a good idea.
-  likes: 3
+- title: Some ideadasdsadsadasdsdf
+  description: Think some idea is a good idea.xxxx
+  likes: 5
   tags:
   - Some
   - Idea
-  history: []
-  group: Default
+  history:
+  - title: Some idea
+    description: Think some idea is a good idea.
+  group: Personal
 - title: Having Statistics
   description: It seems like a good idea to have statistics about ideas, so that we
     get an organized information on recorded ideas across a week or a day.
@@ -44,3 +46,4 @@ groups:
 - Personal
 - Funny
 - Tacko
+- Fulu

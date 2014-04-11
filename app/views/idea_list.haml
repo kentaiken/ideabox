@@ -1,0 +1,32 @@
+- if ideaGroup.empty?
+    %p
+        %i Sorry there aren't any ideas recorded yet.
+- else
+    
+    - ideaGroup.each do |group, ideas|
+        
+        %p.lead
+            %a{href: "/groups/#{ group }"} 
+                = group
+        - ideas.each do |idea|
+            .idea
+                .ideaHeading
+                    %p 
+                        = idea.title
+                .ideaDescription
+                    = idea.description
+                    %br
+                    %br
+                    %p
+                        Group :
+                        %a{href: "/groups/#{ idea.group }"} 
+                            = idea.group
+                    %a{href: "/ideas/#{ idea.id }"} Details
+                    %a{href: "/ideas/#{ idea.id }/edit"} Edit
+                    %a{href: "#", onClick: "document.getElementById('deleteForm#{ idea.id }').submit();"} Remove
+                    %a{href: "/ideas/#{ idea.id }/like"} 
+                        Like
+                        %span.badge 
+                            = idea.likes
+                %form{id: "deleteForm#{ idea.id }", action: "/ideas/#{ idea.id }/delete", method: 'POST'}
+                    %input{type: 'hidden', name: '_method', value: 'DELETE'}

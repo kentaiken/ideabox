@@ -1,0 +1,31 @@
+.row
+    .col-md-12
+        .page-header
+            
+            %h3 
+                = @idea.title
+            %p 
+                = @idea.description
+            %p
+                %span.lead Tags :
+                - @idea.tags.each do |tag|
+                    %a{href: "/ideas/#{tag}"} 
+                        = tag
+
+            %a{href: "/ideas/#{ @idea.id }"} Details
+            %a{href: "/ideas/#{ @idea.id }/edit"} Edit
+            %a{href: "#", onClick: "document.getElementById('deleteForm#{ @idea.id }').submit();"}
+            %a{href: "/ideas/#{ @idea.id }/like"} 
+                Like
+                %span.badge 
+                    = @idea.likes
+
+.row
+    .col-md-12
+        %p.lead History
+
+        - @idea.history.each do |rev|
+            .ideaHeading 
+                = rev["title"]
+            .ideaDescription 
+                = rev["description"]

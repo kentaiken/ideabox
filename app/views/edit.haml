@@ -1,0 +1,8 @@
+.row
+    .col-md-12
+        %p.lead 
+            Edit your idea.
+            .center
+                = haml :form, :locals => { idea: @idea, id: @id, mode: 'edit', groups: @groups }
+
+

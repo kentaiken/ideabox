@@ -1,0 +1,6 @@
+.row
+    .col-md-12
+        %p.lead 
+            These are the ideas with the tag 
+            = @tagName
+        = haml :idea_list, :locals => {ideaGroup: @ideaGroup}

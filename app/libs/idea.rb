@@ -6,13 +6,13 @@ class Idea
 
 	def initialize(idea = {})
 
-		@title = idea["title"]
-		@description = idea["description"]
-		@id = idea["id"]
+		@title = idea["title"] || ""
+		@description = idea["description"] || ""
+		@id = idea["id"] || -1
 		@likes = idea["likes"] || 0
 		@tags = sanitizeTags(idea["tags"] || [])
 		@history = idea["history"] || []
-		@group = idea["group"]
+		@group = idea["group"] || ""
 
 	end
 
