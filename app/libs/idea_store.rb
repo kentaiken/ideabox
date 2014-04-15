@@ -1,62 +1,42 @@
-class IdeaStore
+module Ideas
 
+	def addIdea(idea)
 
-	def self.addIdea(idea)
-
+		@ideas << idea
 		store.transaction do |handle|
 
-			handle['ideas'] << idea.to_h
+			handle["users"][@id]["ideas"] ||= []
+			handle["users"][@id]["ideas"] << idea.to_h
 
 		end
 	end
 
-	def self.remove(id)
-
+	def removeIdea(id)
+		
 		store.transaction do |handle|
 
-			handle['ideas'].delete_at(id.to_i)
+			handle["users"][@id]["ideas"].delete_at(id.to_i)
 		end
 	end
 
 			
 
-	def self.update(id, data)
+	def update(id, data)
 
+		@ideas[id.to_i] = data
 		store.transaction do |handle|
-			handle['ideas'][id.to_i] = data.to_h
+			handle["users"][@id]["ideas"][id.to_i] = data.to_h
 		end
 	end
 
-	def self.rawIdeas
 
-		store.transaction do |handle|
-			handle['ideas'] || []
-		end
-	
-	end
+	def findIdeaById(id)
 
-	def self.findAll
-
-		ideas = []
-		rawIdeas.each_with_index do |idea, index|
-			ideas << Idea.new( idea.merge({"id" => index}) )
-		end
-		ideas
-	
-	end
-
-	def self.findById(id)
-
-		findAll[id.to_i]
+		@ideas[id.to_i]
 
 	end
 
-	def self.store
-
-		@store ||= YAML::Store.new("./app/db/ideaboxstore")
-	end
-
-	def self.groupedIdeas(ideas)
+	def groupedIdeas(ideas)
 
 		ret = {}
 
@@ -69,17 +49,22 @@ class IdeaStore
 
 		ret
 
-
 	end
 
-	def self.findIdeas( content )
+	def findIdeas( content )
 
-		ideas = findAll.sort
 
+		ideas = @ideas.sort
 		ideas.select do |idea|
 			
 			idea.title.include? content or idea.description.include? content
 		end
+
+	end
+
+	def store
+
+		YAML::Store.new("./app/db/ideaboxstore")
 	end
 	
 	#The code in here changes all the current data to the most recent structure.

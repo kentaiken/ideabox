@@ -1,4 +1,6 @@
 .row
     .col-md-12
-        %p.lead Ideas with content : = @content
+        %p.lead 
+            Ideas with content : 
+            = @content
         = haml :idea_list, :locals => {ideaGroup: @ideaGroup}

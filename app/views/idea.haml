@@ -23,9 +23,9 @@
 .row
     .col-md-12
         %p.lead History
-
-        - @idea.history.each do |rev|
-            .ideaHeading 
-                = rev["title"]
-            .ideaDescription 
-                = rev["description"]
+        .idea
+            - @idea.history.each do |rev|
+                .ideaHeading 
+                    = rev["title"]
+                .ideaDescription 
+                    = rev["description"]

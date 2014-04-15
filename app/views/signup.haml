@@ -1,0 +1,16 @@
+.row
+    .col-md-12
+        %p.lead Enter your details here.
+        
+        %form.ideaBoxForm{role: "form", action: "/signup", method: "POST"}
+            .form-group
+                %label Username :
+                %input.form-control{type: "text", name: "user[username]"}
+            .form-group
+                %label Password :
+                %input.form-control{type: "password", name: "user[password]"}
+            .form-group
+                %label Confrim password : 
+                %input.form-control{type: "password", name: "password-confirm"}
+            %button.btn.btn-default{type: "submit"}
+                Submit

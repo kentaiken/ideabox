@@ -30,6 +30,9 @@
                   %li New Idea
                 %a{href: '/groups/new'}
                   %li New Group
+                - if session[:user]
+                  %a{href: '/logout'}
+                    %li Logout
 
       = yield 
 

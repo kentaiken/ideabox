@@ -1,8 +1,111 @@
 
+module Setup
+
+	class Configuration < Sinatra::Base
+
+		configure do 
+
+			set :method_override, true
+			set :public_folder, Dir.pwd + '/app/assets'
+			enable :sessions
+
+		end
+	end
+
+end
 
 module Routes
 
+	class Auth < Sinatra::Base
+
+
+		helpers do 
+
+			def authenticate(params)
+
+				success = false
+				redirect to('/login') unless params[:username] and params[:password]
+				user = User.findByName(params[:username])
+				if user 
+					if user.password == params[:password]
+						session[:user] = user
+						success = true
+					end
+				end
+				if success
+					redirect to('/')
+				else
+					redirect to('/login')
+				end
+
+
+			end
+
+
+			def authenticated?
+				true if session[:user]
+			end
+
+			def fail_auth
+			end
+
+	        end	
+
+		before do		
+
+			toThisBlock = ["/login", "/logout", "/signup"].any? do |route|
+				route == request.path_info
+			end
+
+			redirect to('/login') unless authenticated? or toThisBlock
+			              
+
+		end
+
+		get '/login' do
+
+			haml :login
+
+		end
+
+		get '/logout' do
+
+			session[:user] = nil
+
+			redirect to('/')
+		end
+		
+		post '/login' do
+
+			authenticate(params)
+			
+		end
+
+		get '/signup' do
+
+			haml :signup
+
+		end
+		post '/signup' do
+
+			redirect to('/signup') if params[:user][:password] != params[("password-confirm").to_sym]
+			user = User.new( params[:user].merge( {"id" => User.all.count} ) ) 
+			User.add(user)
+
+		        redirect to('/login')	
+
+
+
+	        end
+
+	end
+
 	class IdeaGroups < Sinatra::Base
+
+		before do
+
+			@user = session[:user]
+		end
 		
 		get '/groups/new' do 
 
@@ -12,8 +115,8 @@ module Routes
 
 		get '/groups/:group' do
 
-			@ideasWithGroup = GroupManager.getIdeasWithGroup(params[:group], IdeaStore.findAll)
-			@ideaGroup = IdeaStore.groupedIdeas( @ideasWithGroup )
+			@ideasWithGroup = GroupManager.getIdeasWithGroup(params[:group], @user.ideas)
+			@ideaGroup = @user.groupedIdeas( @ideasWithGroup )
 			@group = params[:group]
 
 			haml :group
@@ -33,17 +136,18 @@ module Routes
 	class Ideas < Sinatra::Base
 
 
-
 		before do 
 
-			IdeaStore.upgrade
+			#IdeaStore.upgrade
+			@user = session[:user]
 
 		end
 
+
 		get '/' do 
 
-			@ideas = IdeaStore.findAll.sort
-			@ideaGroup = IdeaStore.groupedIdeas(@ideas)
+			@ideas = @user.ideas.sort
+			@ideaGroup = @user.groupedIdeas(@ideas)
 			@tags = TagManager.getUniqueTags(@ideas)
 
 			haml :index
@@ -52,7 +156,7 @@ module Routes
 
 		post '/ideas' do
 			
-			IdeaStore.addIdea( Idea.new(params[:idea]) )
+			@user.addIdea( Idea.new(params[:idea].merge({ "id" => @user.ideas.count}) ))
 
 			redirect to('/')
 		end
@@ -62,7 +166,7 @@ module Routes
 			
 			@idea = Idea.new
 			@groups = GroupManager.getGroups
-			@groups.insert(0, "Default") unless @groups.include? 'Deafult'
+			@groups.insert(0, "Default") unless @groups.include? 'Default'
 
 			haml :new_idea
 
@@ -70,8 +174,8 @@ module Routes
 
 		get '/ideas/search' do
 
-			@ideas = IdeaStore.findIdeas( params[:content] )
-			@ideaGroup = IdeaStore.groupedIdeas( @ideas )
+			@ideas = @user.findIdeas( params[:content] )
+			@ideaGroup = @user.groupedIdeas( @ideas )
 			@content = params[:content]
 
 			haml :search_complete
@@ -80,8 +184,9 @@ module Routes
 			
 		get '/ideas/:id/edit' do 
 
-			@idea = IdeaStore.findById(params[:id])
+			@idea = @user.findIdeaById(params[:id])
 			@groups = GroupManager.getGroups
+			@groups.insert(0, "Default") unless @groups.include? 'Default'
 			@id = params[:id]
 
 			haml :edit
@@ -89,9 +194,9 @@ module Routes
 
 		get '/ideas/:id/like' do 
 
-			@idea = IdeaStore.findById(params[:id])
-			@idea.addLike
-			IdeaStore.update(params[:id], @idea)
+			@idea = @user.findIdeaById(params[:id])
+			@user.ideas[params[:id].to_i].addLike
+			@user.update(params[:id], @idea)
 
 			redirect to('/')
 		
@@ -99,9 +204,9 @@ module Routes
 
 		get %r{/ideas/([a-zA-Z]+)$} do |tagName|
 
-			@ideas = IdeaStore.findAll
+			@ideas = @user.ideas
 			@ideas = TagManager.ideasWithTagname(tagName, @ideas)
-			@ideaGroup = IdeaStore.groupedIdeas(@ideas)
+			@ideaGroup = @user.groupedIdeas(@ideas)
 			@tagName = tagName
 
 			haml :tag_ideas
@@ -110,7 +215,7 @@ module Routes
 
 		get '/ideas/:id' do
 
-			@idea = IdeaStore.findById(params[:id])
+			@idea = @user.findIdeaById(params[:id])
 
 			haml :idea
 
@@ -119,16 +224,17 @@ module Routes
 
 		put '/ideas/:id/edit' do
 
-			@originalIdea = IdeaStore.findById(params[:id])
+			@originalIdea = @user.findIdeaById(params[:id])
 			@idea = Idea.new( params[:idea].merge({ "history" => @originalIdea.withHistory }) )
-			IdeaStore.update(params[:id], @idea)
+			@user.update(params[:id], @idea)
 
 			redirect to('/')
 		end
 
-		delete 'ideas/:id/delete' do 
+		delete '/ideas/:id/delete' do 
 
-			IdeaStore.remove(params[:id])
+			@user.removeIdea(params[:id])
+			@user = session[:user] = User.findByName(@user.username)
 
 			redirect to('/')
 		end
@@ -138,10 +244,12 @@ end
 
 class IdeaBoxApp < Sinatra::Base
 
-	set :method_override, true
-	set :public_folder, Dir.pwd + '/app/assets'
+		
+	use Setup::Configuration 
+	use Routes::Auth
 	use Routes::Ideas
 	use Routes::IdeaGroups
+
 
 end
 
