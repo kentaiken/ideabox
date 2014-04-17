@@ -33,8 +33,10 @@ module Routes
 					end
 				end
 				if success
+					session[:notice] = "Welcome, " + session[:user].username
 					redirect to('/')
 				else
+					session[:notice] = "Sorry we could not authenticate you. Please check your crdentials again."
 					redirect to('/login')
 				end
 
@@ -46,9 +48,6 @@ module Routes
 				true if session[:user]
 			end
 
-			def fail_auth
-			end
-
 	        end	
 
 		before do		
@@ -57,7 +56,11 @@ module Routes
 				route == request.path_info
 			end
 
-			redirect to('/login') unless authenticated? or toThisBlock
+
+			unless authenticated? or toThisBlock
+				session[:notice] = "You have to be logged in to access this page."
+				redirect to('/login') 
+			end
 			              
 
 		end
@@ -71,8 +74,9 @@ module Routes
 		get '/logout' do
 
 			session[:user] = nil
+			session[:notice] = "You have been logged out successfully."
 
-			redirect to('/')
+			redirect to('/login')
 		end
 		
 		post '/login' do
@@ -91,6 +95,7 @@ module Routes
 			redirect to('/signup') if params[:user][:password] != params[("password-confirm").to_sym]
 			user = User.new( params[:user].merge( {"id" => User.all.count} ) ) 
 			User.add(user)
+			session[:notice] = "Your signup was successful."
 
 		        redirect to('/login')	
 
@@ -138,7 +143,6 @@ module Routes
 
 		before do 
 
-			#IdeaStore.upgrade
 			@user = session[:user]
 
 		end

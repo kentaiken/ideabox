@@ -11,7 +11,10 @@
       .row
         .col-md-12
           .page-header
-
+            - if session[:notice]
+              %h3.label.label-info
+                = session[:notice]
+                - session[:notice] = nil
             %h1
               %a{href: '/'}
                 IdeaBox
